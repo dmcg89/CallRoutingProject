@@ -1,3 +1,4 @@
+# Dictionary Solution
 import sys
 import re
 
@@ -42,12 +43,12 @@ def test_call_router():
     routes_dict = routes(routes_file)
     routes_cost = routes_cost_dict(routes_dict)
 
-    file2 = open('phone-numbers-10000-test-scenario3.txt',"w")
+    file3 = open('phone-numbers-10000-test-scenario3.txt',"w")
     for number in phone_number_array:
         cost = look_up(number, routes_cost)
-        file2.write(number + ':' + str(cost) + ',')
+        file3.write(number + ':' + str(cost) + ',')
     
-    file2.close()
+    file3.close()
 
 
 

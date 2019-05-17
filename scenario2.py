@@ -1,5 +1,6 @@
+# Linear Solution
+
 import re
-from binarytree import BinarySearchTree, BinaryTreeNode
 
 def phone_numbers(phone_numbers_file):
     ''' Turns phone #'s into array and removes + sign'''
@@ -14,34 +15,47 @@ def routes(routes_file):
     file = open(routes_file)
     route_numbers = file.read()
     file.close
+    prefix_array = []
+    price_array = []
     route_numbers_array = re.sub(r'\+', "", route_numbers).split('\n')
     route_numbers_array.pop()
+    for route in route_numbers_array:
+        prefix, price = route.split(',')
+        prefix_array.append(prefix)
+        price_array.append(price)
+    print(prefix_array)
+    print(price_array)
     return route_numbers_array
 
-def look_up(phone_number, routes_prices_dict):
+def look_up(phone_number, prefix_array):
     while len(phone_number) > 1:
-        if routes_cost_tree(contains):
-            return routes_prices_dict[phone_number]
+        for prefix in prefix_array:
+            if phone_number == prefix:
+                return prefix_array.index(prefix)
         
         phone_number = phone_number[0:-1]
     
     return 0
 
-def routes_tree(routes_array):
-    routes_cost_tree = BinarySearchTree()
-    prefix, price = route.split(',')
-    routes_cost_tree.insert((prefix, price))
-
 
 def test_call_router():
-    phone_numbers_file = './CallRoutingFiles/phone-numbers-10000.txt'
-    routes_file = './CallRoutingFiles/route-costs-10000000.txt'
+    phone_numbers_file = './CallRoutingFiles/phone-numbers-1000.txt'
+    routes_file = './CallRoutingFiles/route-costs-106000.txt'
     phone_number_array = phone_numbers(phone_numbers_file)
     route_numbers_array = routes(routes_file)
-
-    file2 = open('phone-numbers-10000-test-scenario2.txt',"w")
+    
+    prefix_array = []
+    price_array = []
+    for route in route_numbers_array:
+        prefix, price = route.split(',')
+        prefix_array.append(prefix)
+        price_array.append(price)
+    file2 = open('phone-numbers-1000-test-scenario2.txt',"w")
     for number in phone_number_array:
-        cost = look_up(number, routes_cost)
+        index = look_up(number, prefix_array)
+        cost = price_array[index]
         file2.write(number + ':' + str(cost) + ',')
     
     file2.close()
+
+test_call_router()
